@@ -73,13 +73,20 @@ img {
   /* margin: 0 15px; */
   padding: 0 15px;
 }
-.progress-bar {
-  width: 10%;
-  height: 4px;
-  border-radius: 2px;
-  background-color: rgb(54, 54, 238);
+.progress-container {
   margin: -8px 15px 0 15px;
+  background-color: #999;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.progress-bar {
+  width: 0%;
+  height: 5px;
+  background-color: rgb(54, 54, 238);
   z-index: 10;
+}
+.progress-bar-dark {
+  background-color: rgb(31, 206, 54) !important;
 }
 .time {
   margin-top: 10px;
@@ -136,9 +143,7 @@ img {
   height: 5px;
   cursor: pointer;
   border-radius: 2px;
-  background-color: #999;
-  background-image: linear-gradient(to right, #999, t);
-  /* background-color: transparent; */
+  background-color: transparent;
 }
 .range::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -192,7 +197,8 @@ ion-icon {
   color: #fff;
 }
 .dark-slider::-webkit-slider-runnable-track {
-  background-color: rgb(199, 207, 199);
+  /* background-color: rgb(199, 207, 199); */
+  background-color: transparent;
 }
 .dark-color {
   color: #fff;

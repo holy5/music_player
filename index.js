@@ -35,10 +35,12 @@ function playPause() {
     track.play();
     playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
     timer = setInterval(displayTime, 900);
+    progress = setInterval(hanldeProgressBar, 900);
   } else {
     track.pause();
     playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
     clearInterval(timer);
+    clearInterval(progress);
   }
   isPlaying = !isPlaying;
 }
@@ -128,6 +130,7 @@ function toggleTheme() {
   document.querySelector(".repeat").classList.toggle("dark-color");
   document.querySelector(".back").classList.toggle("dark-color");
   document.querySelector(".play").classList.toggle("dark-play");
+  document.querySelector(".progress-bar").classList.toggle("progress-bar-dark");
 }
 // Loop
 let isRepeat = false;
@@ -166,4 +169,13 @@ function handleShuffle() {
     track.addEventListener("ended", handleEndTrack);
   }
   isShuffle = !isShuffle;
+}
+// Progress Bar
+const progressBar = document.querySelector(".progress-bar");
+
+function hanldeProgressBar() {
+  const { currentTime, duration } = track;
+  let currentProgress = `${Math.floor((currentTime * 100) / duration)}%`;
+  progressBar.style.width = currentProgress;
+  console.log(currentProgress);
 }
