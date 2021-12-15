@@ -124,6 +124,8 @@ function toggleTheme() {
   document.querySelector(".range").classList.toggle("dark-slider");
   document.querySelector(".time").classList.toggle("dark-text");
   document.querySelector(".forward").classList.toggle("dark-color");
+  document.querySelector(".shuffle").classList.toggle("dark-color");
+  document.querySelector(".repeat").classList.toggle("dark-color");
   document.querySelector(".back").classList.toggle("dark-color");
   document.querySelector(".play").classList.toggle("dark-play");
 }
