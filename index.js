@@ -49,22 +49,16 @@ nextBtn.addEventListener("click", () => {
 backBtn.addEventListener("click", () => {
   changeTrack(-1);
 });
-
+// Next,prev track
 function changeTrack(dir) {
-  if (dir == 1) {
-    currentTrack++;
-    currentName++;
-    if (currentTrack >= tracks.length) {
-      currentTrack = 0;
-      currentName = 0;
-    }
-  } else if (dir == -1) {
-    currentTrack--;
-    currentName--;
-    if (currentTrack < 0) {
-      currentTrack = tracks.length - 1;
-      currentName = musicNames.length - 1;
-    }
+  currentTrack += dir;
+  currentName += dir;
+  if (currentTrack >= tracks.length) {
+    currentTrack = 0;
+    currentName = 0;
+  } else if (currentTrack < 0) {
+    currentTrack = tracks.length - 1;
+    currentName = musicNames.length - 1;
   }
   musicName.innerHTML = `${musicNames[currentName]}`;
   isPlaying = true;
@@ -132,4 +126,42 @@ function toggleTheme() {
   document.querySelector(".forward").classList.toggle("dark-color");
   document.querySelector(".back").classList.toggle("dark-color");
   document.querySelector(".play").classList.toggle("dark-play");
+}
+// Loop
+let isRepeat = false;
+const repeatBtn = document.querySelector(".repeat");
+repeatBtn.addEventListener("click", handleRepeat);
+function handleRepeat() {
+  repeatBtn.classList.remove("active");
+
+  if (!isRepeat) {
+    repeatBtn.classList.add("active");
+    track.setAttribute("loop", "");
+  } else {
+    track.removeAttribute("loop");
+  }
+  isRepeat = !isRepeat;
+}
+// Shuffle
+const shuffleBtn = document.querySelector(".shuffle");
+let isShuffle = false;
+shuffleBtn.addEventListener("click", handleShuffle);
+
+function handleShuffle() {
+  track.removeEventListener("ended", handleEndTrack);
+  const max = tracks.length;
+  const min = 1;
+  randomDir = Math.floor(Math.random() * (max - min) + min);
+  const changeRandom = () => {
+    changeTrack(randomDir);
+  };
+  if (!isShuffle) {
+    shuffleBtn.classList.toggle("active");
+    track.addEventListener("ended", changeRandom);
+  } else {
+    shuffleBtn.classList.toggle("active");
+    track.removeEventListener("ended", changeRandom);
+    track.addEventListener("ended", handleEndTrack);
+  }
+  isShuffle = !isShuffle;
 }
