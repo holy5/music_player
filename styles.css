@@ -154,7 +154,8 @@ ion-icon {
   z-index: 1;
 }
 .light-body {
-  background-color: rgb(247, 243, 243);
+  background-color: rgb(12, 12, 12);
+  padding: 20px;
 }
 .dark-background {
   background-color: #333;
