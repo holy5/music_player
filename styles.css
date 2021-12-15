@@ -1,0 +1,183 @@
+html {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+input,
+textarea,
+select,
+button {
+  outline: none;
+}
+input {
+  line-height: normal;
+}
+label,
+button {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+  user-select: none;
+}
+
+.dark-body {
+  font-family: "SF Pro Display", sans-serif;
+  padding: 20px;
+  background-color: rgb(73, 73, 73);
+  transition: all 0.3s ease-in-out;
+}
+.music {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 15px;
+  transition: all 0.3s ease-in-out;
+}
+.music-img {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 25px;
+}
+.music-img img {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.music-name {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.music-artist {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.range {
+  /* margin: 0 15px; */
+  padding: 0 15px;
+}
+.time {
+  margin-top: 10px;
+  padding: 0 15px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #777;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 30px;
+  padding: 20px 0;
+  font-size: 24px;
+}
+.back,
+.forward {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.play {
+  width: 50px;
+  height: 50px;
+  border-radius: 100rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px, 0 0 0 10px #6a5af9;
+  transition: all 0.3s ease-in-out;
+}
+
+.range {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+.range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  border-radius: 2px;
+  background-color: #999;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 100rem;
+  background-color: rgb(79, 216, 79);
+  box-shadow: 0 0 0 3px #fff, 0 0 0 5px rgba(196, 195, 195, 0.74);
+
+  margin-top: -5px;
+}
+
+/* DarkMode */
+
+.dark-mode {
+  width: 40px;
+  height: 40px;
+  border-radius: 100rem;
+  background-color: #444;
+}
+.theme-icon {
+  border-radius: 50%;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+ion-icon {
+  z-index: 1;
+}
+.light-body {
+  background-color: rgb(247, 243, 243);
+}
+.dark-background {
+  background-color: #333;
+}
+.dark-icon {
+  background-color: #0093e9;
+  background-image: linear-gradient(192deg, #0093e9 0%, #80d0c7 100%);
+  color: #fff;
+}
+.dark-img img {
+  box-shadow: rgba(210, 210, 219, 0.2) 0px 7px 29px 0px;
+}
+.dark-text {
+  color: #fff;
+}
+.dark-slider::-webkit-slider-runnable-track {
+  background-color: rgb(199, 207, 199);
+}
+.dark-color {
+  color: #fff;
+}
+.dark-play {
+  background-color: #000;
+  box-shadow: rgba(185, 187, 189, 0.2) 0px 8px 24px, 0 0 0 10px #4ac57d;
+  color: #fff;
+}

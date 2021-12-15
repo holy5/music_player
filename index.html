@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mp3 Player</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script defer src="./index.js"></script>
+  </head>
+  <body class="dark-body">
+    <div class="music">
+      <div class="dark-mode">
+        <div class="theme-icon">
+          <ion-icon name="moon"></ion-icon>
+        </div>
+      </div>
+      <div class="music-img dark-img">
+        <img src="https://source.unsplash.com/random" alt="Music Image" />
+      </div>
+      <h3 class="music-name">A(I)Ngel Become God</h3>
+      <div class="music-artist">Virtual Self</div>
+      <input type="range" name="range " class="range" />
+      <audio
+        src="./music/A_I_Ngel Become God_ - Virtual Self.flac"
+        id="track"
+      ></audio>
+      <div class="time">
+        <div class="current">2:57</div>
+        <div class="length">4:56</div>
+      </div>
+      <div class="controls">
+        <ion-icon name="play-back" class="back"></ion-icon>
+        <div class="play">
+          <ion-icon name="play"></ion-icon>
+        </div>
+        <ion-icon name="play-forward" class="forward"></ion-icon>
+      </div>
+    </div>
+  </body>
+</html>
