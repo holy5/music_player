@@ -7,40 +7,54 @@ const currentPlayingTime = document.querySelector(".current");
 const length = document.querySelector(".length");
 const slider = document.querySelector(".range");
 
-let musicNames = [
-  "A(I)Ngel Become God",
-  "Angel Voices",
-  "Eon Break",
-  "Particle Arts",
-];
-let currentName = 0;
-
 const tracks = [
-  "A_I_Ngel Become God_ - Virtual Self.flac",
-  "Angel Voices - Virtual Self.flac",
-  "Eon Break - Virtual Self.mp3",
-  "Particle Arts - Virtual Self.flac",
+  {
+    id: 1,
+    name: "A(I)Ngel Become God",
+    artist: "Virtual Self",
+    path: "./music/A_I_Ngel Become God_ - Virtual Self.flac",
+  },
+  {
+    id: 2,
+    name: "Angel Voices",
+    artist: "Virtual Self",
+    path: "./music/Angel Voices - Virtual Self.flac",
+  },
+  {
+    id: 3,
+    name: "Eon Break",
+    artist: "Virtual Self",
+    path: "./music/Eon Break - Virtual Self.mp3",
+  },
+  {
+    id: 4,
+    name: "Particle Arts",
+    artist: "Virtual Self",
+    path: "./music/Particle Arts - Virtual Self.flac",
+  },
 ];
 
 let currentTrack = 0;
-track.setAttribute("src", `./music/${tracks[currentTrack]}`);
+track.setAttribute("src", `${tracks[0].path}`);
 
 playBtn.addEventListener("click", playPause);
 let isPlaying = true;
 
 let timer;
 
+function loadTrack(currentTrack) {
+  track.setAttribute("src", `${tracks[currentTrack].path}`);
+}
+
 function playPause() {
   if (isPlaying) {
     track.play();
     playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
     timer = setInterval(displayTime, 900);
-    progress = setInterval(hanldeProgressBar, 900);
   } else {
     track.pause();
     playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
     clearInterval(timer);
-    clearInterval(progress);
   }
   isPlaying = !isPlaying;
 }
@@ -54,18 +68,21 @@ backBtn.addEventListener("click", () => {
 // Next,prev track
 function changeTrack(dir) {
   currentTrack += dir;
-  currentName += dir;
   if (currentTrack >= tracks.length) {
     currentTrack = 0;
-    currentName = 0;
   } else if (currentTrack < 0) {
     currentTrack = tracks.length - 1;
-    currentName = musicNames.length - 1;
   }
-  musicName.innerHTML = `${musicNames[currentName]}`;
+  changeTitle(currentTrack);
   isPlaying = true;
-  track.setAttribute("src", `./music/${tracks[currentTrack]}`);
+  loadTrack(currentTrack);
   playPause();
+  handlePlaying();
+  return currentTrack;
+}
+
+function changeTitle(currentTrack) {
+  musicName.innerHTML = `${tracks[currentTrack].name}`;
 }
 
 function displayTime() {
@@ -110,8 +127,18 @@ let isDark = false;
 toggle.addEventListener("click", toggleTheme);
 function toggleTheme() {
   const icon = document.querySelector(".theme-icon");
-  document.querySelector("body").classList.toggle("light-body");
-  document.querySelector(".music").classList.toggle("dark-background");
+  const body = document.querySelector("body");
+  const music = document.querySelector(".music");
+  const musicName = document.querySelector(".music-name");
+  const musicArtist = document.querySelector(".music-artist");
+  const slider = document.querySelector(".range");
+  const timer = document.querySelector(".time");
+  const control = document.querySelector(".controls");
+  const progressBar = document.querySelector(".progress-bar");
+  const play = document.querySelector(".play");
+
+  body.classList.toggle("light-body");
+  music.classList.toggle("dark-background");
 
   if (!isDark) {
     icon.innerHTML = `<ion-icon name="sunny"></ion-icon>`;
@@ -121,16 +148,13 @@ function toggleTheme() {
   icon.classList.toggle("dark-icon");
   isDark = !isDark;
 
-  document.querySelector(".music-name").classList.toggle("dark-text");
-  document.querySelector(".music-artist").classList.toggle("dark-text");
-  document.querySelector(".range").classList.toggle("dark-slider");
-  document.querySelector(".time").classList.toggle("dark-text");
-  document.querySelector(".forward").classList.toggle("dark-color");
-  document.querySelector(".shuffle").classList.toggle("dark-color");
-  document.querySelector(".repeat").classList.toggle("dark-color");
-  document.querySelector(".back").classList.toggle("dark-color");
-  document.querySelector(".play").classList.toggle("dark-play");
-  document.querySelector(".progress-bar").classList.toggle("progress-bar-dark");
+  musicName.classList.toggle("dark-text");
+  musicArtist.classList.toggle("dark-text");
+  slider.classList.toggle("dark-slider");
+  timer.classList.toggle("dark-text");
+  control.classList.toggle("dark-color");
+  play.classList.toggle("dark-play");
+  progressBar.classList.toggle("progress-bar-dark");
 }
 // Loop
 let isRepeat = false;
@@ -156,9 +180,9 @@ function handleShuffle() {
   track.removeEventListener("ended", handleEndTrack);
   const max = tracks.length;
   const min = 1;
-  randomDir = Math.floor(Math.random() * (max - min) + min);
+  currentTrack = Math.floor(Math.random() * (max - min) + min);
   const changeRandom = () => {
-    changeTrack(randomDir);
+    changeTrack(currentTrack);
   };
   if (!isShuffle) {
     shuffleBtn.classList.toggle("active");
@@ -169,13 +193,97 @@ function handleShuffle() {
     track.addEventListener("ended", handleEndTrack);
   }
   isShuffle = !isShuffle;
+  return currentTrack;
 }
 // Progress Bar
 const progressBar = document.querySelector(".progress-bar");
-
-function hanldeProgressBar() {
-  const { currentTime, duration } = track;
+track.addEventListener("timeupdate", (e) => {
+  const currentTime = e.target.currentTime;
+  const duration = e.target.duration;
   let currentProgress = `${Math.floor((currentTime * 100) / duration)}%`;
   progressBar.style.width = currentProgress;
-  console.log(currentProgress);
+});
+// Volume
+const volumeIconWrapper = document.querySelector(".volume-icon-wrapper");
+const volumeControl = document.querySelector(".volume-control");
+const volumeSlider = document.querySelector(".volume-slider");
+let isMuted = false;
+volumeSlider.max = 1;
+volumeSlider.min = 0;
+volumeSlider.step = 0.02;
+
+volumeIconWrapper.addEventListener("click", handleVolume);
+volumeIconWrapper.addEventListener("mouseenter", displayVolume);
+volumeControl.addEventListener("mouseleave", hideVolume);
+
+function displayVolume() {
+  volumeControl.style.display = "flex";
+}
+function hideVolume() {
+  volumeControl.style.display = "none";
+}
+
+function handleVolume() {
+  if (!isMuted) {
+    track.volume = 0;
+    volumeSlider.value = 0;
+    volumeIconWrapper.innerHTML = `<ion-icon name="volume-mute" class="volume"></ion-icon>`;
+  } else {
+    track.volume = 0.5;
+    volumeSlider.value = 0.5;
+    volumeIconWrapper.innerHTML = `<ion-icon name="volume-high" class="volume"> </ion-icon>`;
+  }
+  isMuted = !isMuted;
+}
+volumeSlider.addEventListener("change", handleVolumeChange);
+function handleVolumeChange() {
+  track.volume = volumeSlider.value;
+  if (volumeSlider.value > 0 && volumeSlider.value <= 0.3) {
+    volumeIconWrapper.innerHTML = `<ion-icon name="volume-low" class="volume"></ion-icon>`;
+  } else if (volumeSlider.value > 0.3 && volumeSlider.value <= 0.6) {
+    volumeIconWrapper.innerHTML = `<ion-icon name="volume-medium" class="volume"></ion-icon>`;
+  } else if (volumeSlider.value > 0.6) {
+    volumeIconWrapper.innerHTML = `<ion-icon name="volume-high" class="volume"> </ion-icon>`;
+  }
+}
+// List
+const dropdownIcon = document.querySelector(".dropdown-icon");
+const listWrapper = document.querySelector(".list-item-wrapper");
+const amount = document.querySelector(".amount");
+const trackItems = document.querySelectorAll(".list-item");
+const trackNames = document.querySelectorAll(".track-name");
+
+trackNames.forEach((name, index) => {
+  name.textContent = tracks[index].name;
+});
+
+amount.textContent =
+  tracks.length < 10 ? `0${tracks.length}` : `${tracks.length}`;
+dropdownIcon.addEventListener("click", handleDropdown);
+
+function handleDropdown() {
+  dropdownIcon.classList.toggle("active");
+  listWrapper.classList.toggle("active");
+}
+
+function handlePlaying() {
+  for (let i = 0; i < tracks.length; i++) {
+    if (trackItems[i].classList.contains("active")) {
+      trackItems[i].classList.remove("active");
+    }
+    if (trackItems[i].getAttribute("li-index") == currentTrack) {
+      trackItems[i].classList.add("active");
+    }
+    trackItems[i].setAttribute("onclick", "handleClickedTrack(this)");
+  }
+}
+handlePlaying();
+function handleClickedTrack(element) {
+  let getIndexOfTrack = element.getAttribute("li-index");
+  currentTrack = getIndexOfTrack;
+  changeTitle(currentTrack);
+  loadTrack(currentTrack);
+  isPlaying = true;
+  playPause();
+  handlePlaying();
 }

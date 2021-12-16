@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 * {
   margin: 0;
@@ -32,6 +33,9 @@ img {
   user-select: none;
 }
 
+body {
+  overflow-y: scroll;
+}
 .dark-body {
   font-family: "SF Pro Display", sans-serif;
   padding: 20px;
@@ -39,6 +43,7 @@ img {
   transition: all 0.3s ease-in-out;
 }
 .music {
+  position: relative;
   max-width: 500px;
   margin: 0 auto;
   background-color: #fff;
@@ -98,11 +103,12 @@ img {
   color: #777;
 }
 .controls {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0 30px;
-  padding: 20px 0;
+  padding: 20px 0 40px 0;
   font-size: 24px;
 }
 .back,
@@ -111,11 +117,31 @@ img {
   transition: all 0.3s ease-in-out;
 }
 .repeat,
+.volume,
+.add,
 .shuffle {
+  display: block;
   cursor: pointer;
   font-size: 30px;
   transition: all 0.3s ease-in-out;
 }
+.volume-control {
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  left: 50px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #999;
+  transition: all 0.3s ease;
+  display: none;
+}
+.volume-control input {
+  cursor: pointer;
+}
+
 .repeat.active,
 .shuffle.active {
   color: rgb(36, 179, 36);
@@ -152,7 +178,6 @@ img {
   border-radius: 100rem;
   background-color: rgb(79, 216, 79);
   box-shadow: 0 0 0 3px #fff, 0 0 0 5px rgba(196, 195, 195, 0.74);
-
   margin-top: -5px;
 }
 
@@ -207,4 +232,94 @@ ion-icon {
   background-color: #000;
   box-shadow: rgba(185, 187, 189, 0.2) 0px 8px 24px, 0 0 0 10px #4ac57d;
   color: #fff;
+}
+/* List */
+.list {
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  margin: 20px auto;
+  border-radius: 12px;
+}
+.dropdown {
+  display: flex;
+  padding: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  display: flex;
+  gap: 0 10px;
+  color: rgba(255, 255, 255, 0.938);
+}
+
+.heading {
+  font-size: 20px;
+  background-color: #333;
+
+  padding: 5px;
+  border-radius: 8px;
+}
+.amount {
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 8px;
+  background-color: rgb(224, 26, 26);
+}
+.dropdown-icon {
+  font-size: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.dropdown-icon.active {
+  transform: rotateZ(-90deg);
+}
+.list-item-wrapper {
+  overflow: hidden;
+  display: none;
+}
+.list-item-wrapper.active {
+  display: block;
+}
+.list-item-wrapper li {
+  list-style: none;
+}
+.list-item {
+  padding: 15px;
+  display: flex;
+  cursor: pointer;
+}
+.list-item.active {
+  background-color: rgb(119, 121, 119);
+}
+.list-item:last-child.active {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.track-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+}
+.track-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.track-info.active {
+  color: rgb(235, 231, 231);
+}
+.track-info {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+  justify-content: center;
+}
+.track-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+.track-artist {
+  font-size: 18px;
 }

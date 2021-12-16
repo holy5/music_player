@@ -32,7 +32,6 @@
       <div class="progress-container">
         <div class="progress-bar"></div>
       </div>
-
       <audio
         src="./music/A_I_Ngel Become God_ - Virtual Self.flac"
         id="track"
@@ -41,7 +40,13 @@
         <div class="current">2:57</div>
         <div class="length">4:56</div>
       </div>
+      <div class="volume-control">
+        <input type="range" class="volume-slider" />
+      </div>
       <div class="controls">
+        <div class="volume-icon-wrapper">
+          <ion-icon name="volume-high" class="volume"> </ion-icon>
+        </div>
         <ion-icon name="shuffle" class="shuffle"></ion-icon>
         <ion-icon name="play-back" class="back"></ion-icon>
         <div class="play">
@@ -49,6 +54,65 @@
         </div>
         <ion-icon name="play-forward" class="forward"></ion-icon>
         <ion-icon name="repeat" class="repeat"></ion-icon>
+        <ion-icon name="add" class="add"></ion-icon>
+      </div>
+    </div>
+    <!-- List -->
+    <div class="list">
+      <div class="container">
+        <div class="dropdown">
+          <div class="title">
+            <h1 class="heading">Tracks</h1>
+            <h1 class="amount">10</h1>
+          </div>
+          <ion-icon name="caret-back" class="dropdown-icon active"></ion-icon>
+        </div>
+        <ul class="list-item-wrapper active">
+          <li class="list-item" li-index="0">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="track-img"
+            />
+            <div class="track-info">
+              <div class="track-name">Eon Break</div>
+              <track class="track-artist">Virtual Self</track>
+            </div>
+          </li>
+          <li class="list-item" li-index="1">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="track-img"
+            />
+            <div class="track-info">
+              <div class="track-name">Eon Break</div>
+              <track class="track-artist">Virtual Self</track>
+            </div>
+          </li>
+          <li class="list-item" li-index="2">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="track-img"
+            />
+            <div class="track-info">
+              <div class="track-name">Eon Break</div>
+              <track class="track-artist">Virtual Self</track>
+            </div>
+          </li>
+          <li class="list-item" li-index="3">
+            <img
+              src="https://source.unsplash.com/random"
+              alt=""
+              class="track-img"
+            />
+            <div class="track-info">
+              <div class="track-name">Eon Break</div>
+              <track class="track-artist">Virtual Self</track>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </body>
